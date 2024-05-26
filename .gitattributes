@@ -1,0 +1,10 @@
+# Handle line endings automatically for files detected as text
+* text=auto
+
+# # Define line endings for specific file types
+# *.py text eol=lf
+# *.html text eol=lf
+# *.css text eol=lf
+# *.js text eol=lf
+# *.md text eol=lf
+# *.json text eol=lf

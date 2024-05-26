@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Attendance Dashboard</title>
+    <link rel="stylesheet" href="path_to_your_css_file.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .header {
+            background-color: #d32f2f;
+            color: white;
+            padding: 15px 20px;
+            text-align: center;
+        }
+        .sidebar {
+            width: 250px;
+            background-color: #333;
+            position: fixed;
+            height: 100%;
+            overflow: auto;
+            color: white;
+        }
+        .sidebar a {
+            display: block;
+            color: white;
+            padding: 15px;
+            text-decoration: none;
+        }
+        .sidebar a:hover {
+            background-color: #575757;
+        }
+        .main {
+            margin-left: 260px;
+            padding: 20px;
+        }
+        .dashboard {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .dashboard .box {
+            flex: 1 1 calc(25% - 40px);
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .dashboard .box .count {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+        .dashboard .box .label {
+            font-size: 1em;
+        }
+        .form-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .form-container h2 {
+            margin-top: 0;
+        }
+        .form-container form div {
+            margin-bottom: 15px;
+        }
+        .form-container form label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-container form select,
+        .form-container form button {
+            width: 100%;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>Student Attendance Dashboard</h1>
+</div>
+
+<div class="sidebar">
+    <a href="{% url 'dashboard' %}">Dashboard</a>
+    <a href="{% url 'view_attendance' %}">View Attendance</a>
+</div>
+
+<div class="main">
+    <div class="dashboard">
+        <div class="box" style="background-color: #4caf50; color: white;">
+            <div class="count">437</div>
+            <div class="label">Total Students</div>
+        </div>
+        <div class="box" style="background-color: #f44336; color: white;">
+            <div class="count">0</div>
+            <div class="label">Absent Today</div>
+        </div>
+        <div class="box" style="background-color: #03a9f4; color: white;">
+            <div class="count">0</div>
+            <div class="label">Present Today</div>
+        </div>
+    </div>
+
+    <div class="form-container">
+        <h2>Mark Attendance for Students</h2>
+        <form method="post">
+            <div>
+                <label for="student_id">Student:</label>
+                <select name="student_id" id="student_id">
+                    {% for student in students %}
+                        <option value="{{ student.student_id }}">{{ student.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div>
+                <label for="status">Status:</label>
+                <select name="status" id="status">
+                    <option value="Present">Present</option>
+                    <option value="Absent">Absent</option>
+                </select>
+            </div>
+            <div>
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

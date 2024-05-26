@@ -1,0 +1,44 @@
+{% extends 'attendance/base.html' %}
+
+{% block content %}
+  <h2>Mark Attendance</h2>
+  <form id="classForm">
+    <label for="classSelect">Select Class:</label>
+    <select id="classSelect" name="class">
+      {% for cls in classes %}
+        <option value="{{ cls.id }}">{{ cls.name }}</option>
+      {% endfor %}
+    </select>
+    <button type="button" onclick="fetchStudents()">Get Students</button>
+  </form>
+
+  <form id="attendanceForm" method="post">
+    {% csrf_token %}
+    <div id="studentList"></div>
+    <button type="submit">Submit Attendance</button>
+  </form>
+
+  <script>
+    function fetchStudents() {
+      const classId = document.getElementById('classSelect').value;
+      fetch(`/attendance/api/class/${classId}/students/`)
+        .then(response => response.json())
+        .then(data => {
+          const studentList = document.getElementById('studentList');
+          studentList.innerHTML = '';
+          data.forEach(student => {
+            const studentDiv = document.createElement('div');
+            studentDiv.innerHTML = `
+              <label>${student.name}</label>
+              <input type="hidden" name="attendance_records[][student_id]" value="${student.id}">
+              <select name="attendance_records[][status]">
+                <option value="Present">Present</option>
+                <option value="Absent">Absent</option>
+              </select>
+            `;
+            studentList.appendChild(studentDiv);
+          });
+        });
+    }
+  </script>
+{% endblock %}

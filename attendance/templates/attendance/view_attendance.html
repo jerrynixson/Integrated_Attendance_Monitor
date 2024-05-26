@@ -1,0 +1,53 @@
+{% extends 'attendance/base.html' %}
+{% load static %}
+
+{% block title %}View Attendance{% endblock %}
+
+{% block content %}
+
+<main>
+    <h2>Attendance Records</h2>
+    <form id="classForm">
+        <label for="classSelect">Select Class:</label>
+        <select id="classSelect" name="class">
+            {% for cls in classes %}
+                <option value="{{ cls.id }}">{{ cls.name }}</option>
+            {% endfor %}
+        </select>
+        <button type="button" onclick="fetchAttendance()">Get Attendance</button>
+    </form>
+    <table id="attendanceTable">
+        <thead>
+            <tr>
+                <th>Student</th>
+                <th>Date</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody id="attendanceRecords">
+            <!-- Records will be populated here -->
+        </tbody>
+    </table>
+</main>
+
+<script>
+    function fetchAttendance() {
+        const classId = document.getElementById('classSelect').value;
+        fetch(`/attendance/api/class/${classId}/records/`)
+            .then(response => response.json())
+            .then(data => {
+                const attendanceRecords = document.getElementById('attendanceRecords');
+                attendanceRecords.innerHTML = '';
+                data.forEach(record => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${record.student_name}</td>
+                        <td>${record.date}</td>
+                        <td>${record.status}</td>
+                    `;
+                    attendanceRecords.appendChild(row);
+                });
+            });
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Attendance Management Dashboard</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .header {
+            background-color: #d32f2f;
+            color: white;
+            padding: 15px 20px;
+            text-align: center;
+        }
+        .sidebar {
+            width: 250px;
+            background-color: #333;
+            position: fixed;
+            height: 100%;
+            overflow: auto;
+            color: white;
+        }
+        .sidebar a {
+            display: block;
+            color: white;
+            padding: 15px;
+            text-decoration: none;
+        }
+        .sidebar a:hover {
+            background-color: #575757;
+        }
+        .main {
+            margin-left: 260px;
+            padding: 20px;
+        }
+        .dashboard {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .dashboard .box {
+            flex: 1 1 calc(25% - 40px);
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .dashboard .box .count {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+        .dashboard .box .label {
+            font-size: 1em;
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>Attendance Management Dashboard</h1>
+</div>
+
+<div class="sidebar">
+    <a href="{% url 'mark_attendance' %}">Mark Attendance</a>
+    <a href="{% url 'view_attendance' %}">View Attendance</a>
+</div>
+
+<div class="main">
+    <div class="dashboard">
+        <div class="box" style="background-color: #4caf50; color: white;">
+            <div class="count">0</div>
+            <div class="label">Total Students</div>
+        </div>
+        <div class="box" style="background-color: #f44336; color: white;">
+            <div class="count">0</div>
+            <div class="label">Absent Today</div>
+        </div>
+        <div class="box" style="background-color: #03a9f4; color: white;">
+            <div class="count">0</div>
+            <div class="label">Present Today</div>
+        </div>
+    </div>
+
+    <h2>Welcome to the Attendance Management System</h2>
+    <p>Use the navigation links to mark or view attendance.</p>
+</div>
+
+</body>
+</html>
